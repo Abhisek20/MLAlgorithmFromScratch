@@ -1,2 +1,2 @@
 # MLAlgorithmFromScratch
-Implementing machine learning algorithms from scratch involves coding the core logic of these algorithms without relying on external libraries for the key functionalities.
+Implementing machine learning algorithms from scratch involves coding the core logic of these algorithms without relying on external libraries for the key functionalities written in Python with libraries like Pandas, NumPy and SciPy
