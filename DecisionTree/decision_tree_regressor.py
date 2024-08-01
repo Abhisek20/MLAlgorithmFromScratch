@@ -7,7 +7,11 @@ class DecisionTreeRegressor():
     A decision tree regressor class that fits to the data and makes predictions.
     """
 
-    def __init__(self, min_samples_split=2, min_samples_leaf=2, min_variance_reduction=0.01, max_depth=100, n_features=None, ):
+    def __init__(self, min_samples_split=2,
+                 min_samples_leaf=2,
+                 min_variance_reduction=0.01,
+                 max_depth=10,
+                 n_features=None, ):
         self.min_samples_split = min_samples_split
         self.max_depth = max_depth
         self.n_features = n_features
