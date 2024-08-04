@@ -1,3 +1,4 @@
+
 import numpy as np
 from enum import Enum
 from numba import jit
@@ -12,7 +13,10 @@ class SolverMethod(Enum):
 class LinearRegression:
     """Linear Regression model class implementing both normal equation and SGD methods."""
 
-    def __init__(self, method=SolverMethod.NORMAL_EQUATION, epochs: int = 100, learning_rate: float = 0.01, batch_size: int = 32) -> None:
+    def __init__(self, method=SolverMethod.NORMAL_EQUATION,
+                 epochs: int = 100,
+                 learning_rate: float = 0.01,
+                 batch_size: int = 32) -> None:
         """
         Initialize the Linear Regression model.
 
@@ -75,32 +79,6 @@ class LinearRegression:
         return intercept, coefs
 
 
-@jit(nopython=True, fastmath=True)
-def calculate_batch_gradients(X_batch: np.array, y_batch: np.array, param_arr: np.array):
-    """
-    Calculate the gradients for a batch of data.
-
-    Parameters:
-    X_batch (np.array): Feature matrix batch.
-    y_batch (np.array): Target vector batch.
-    param_arr (np.array): Current coefficients.
-
-    Returns:
-    np.array: Gradients for the coefficients.
-    """
-    sample_size = X_batch.shape[0]
-
-    # first order derivative of mse loss  :
-    #  2*(y_hat - y)@X/sample_size = 2*(X_T@param_arr - y)@X/sample_size = 2*error@X/sample_size
-
-    # (bs x num_cols) x (num_cols x 1 ) = (bs x 1)
-    prediction = X_batch @ param_arr
-
-    error = prediction - y_batch
-    # (bs x num_cols).T x (bs x 1)  = (num_cols x 1)
-    gradients = 2 * (X_batch.T @ error) / sample_size
-    return gradients
-
 
 @jit(nopython=True, fastmath=True)
 def fit_sgd(X: np.array, y: np.array, param_arr: np.array, learning_rate: float, epochs: int, batch_size: int):
@@ -131,3 +109,30 @@ def fit_sgd(X: np.array, y: np.array, param_arr: np.array, learning_rate: float,
 
     intercept, coefs = param_arr[0], param_arr[1:]
     return intercept, coefs
+
+
+@jit(nopython=True, fastmath=True)
+def calculate_batch_gradients(X_batch: np.array, y_batch: np.array, param_arr: np.array):
+    """
+    Calculate the gradients for a batch of data.
+
+    Parameters:
+    X_batch (np.array): Feature matrix batch.
+    y_batch (np.array): Target vector batch.
+    param_arr (np.array): Current coefficients.
+
+    Returns:
+    np.array: Gradients for the coefficients.
+    """
+    sample_size = X_batch.shape[0]
+
+    # first order derivative of mse loss  :
+    #  2*(y_hat - y)@X/sample_size = 2*(X_T@param_arr - y)@X/sample_size = 2*error@X/sample_size
+
+    # (bs x num_cols) x (num_cols x 1 ) = (bs x 1)
+    prediction = X_batch @ param_arr
+
+    error = prediction - y_batch
+    # (bs x num_cols).T x (bs x 1)  = (num_cols x 1)
+    gradients = 2 * (X_batch.T @ error) / sample_size
+    return gradients
