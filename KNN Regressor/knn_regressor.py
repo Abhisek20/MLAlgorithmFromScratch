@@ -91,5 +91,5 @@ def _calculate_minkowski_distance(X_test: np.array, X_train: np.array) -> float:
     Returns:
     float: Euclidean distance between the two points.
     """
-    # Euclidean distance = √Σ(x_i - y_i)^2, for i=1,2,3,...<rows>
+    # Euclidean distance = √Σ(x_i - y_i)^2, for i=1,2,3,...<# of columns>
     return np.sqrt(np.sum(np.square(X_test - X_train)))
