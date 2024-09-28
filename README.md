@@ -11,6 +11,7 @@ Algorithms Implemented:
 - [K-Nearest Neighbors (KNN)](./KNN%20Regressor/knn_regressor.py)
 - [Decision Trees](./DecisionTree/decision_tree_regressor.py)
 - [Regularized Linear Regression](./Regularized%20Linear%20Regression/)
+- [Poisson Regression](./Poisson%20Regression/poisson_regression.py)
 
 
 
